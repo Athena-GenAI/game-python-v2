@@ -15,6 +15,46 @@ export VIRTUALS_API_KEY="your_virtuals_api_key"
 
 Alternatively, you can also use a `.env` file ([`python-dotenv` package](https://github.com/theskumar/python-dotenv) to store and load the key) if you are using the Virtuals Python SDK.
 
+## Security Best Practices
+
+### API Key Management
+1. Never commit API keys to version control
+2. Use environment variables or `.env` files to store sensitive data
+3. Add `.env` to your `.gitignore` file
+4. Use `.env.example` as a template without real values
+
+### Environment Setup
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` with your actual API key:
+   ```bash
+   VIRTUALS_API_KEY="your_virtuals_api_key"
+   ```
+
+3. Load the environment variable:
+   ```python
+   import os
+   from dotenv import load_dotenv  # pip install python-dotenv
+
+   # Load environment variables from .env file
+   load_dotenv()
+
+   # Get API key securely
+   api_key = os.getenv("VIRTUALS_API_KEY")
+   if not api_key:
+       raise ValueError("VIRTUALS_API_KEY environment variable not set")
+   ```
+
+### Additional Security Tips
+1. Rotate API keys regularly
+2. Use different API keys for development and production
+3. Limit API key permissions to only what's needed
+4. Monitor API key usage for suspicious activity
+5. Revoke compromised API keys immediately
+
 ## Usage (GAME)
 The Virtuals SDK current main functionalities are to develop and configure agents powered by GAME. Other functionalities to interact with the Virtuals Platform will be supported in the future. This GAME SDK can be used for multiple use cases:
 
